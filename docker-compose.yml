@@ -64,3 +64,7 @@ services:
     image: schickling/mailcatcher
     ports:
       - $MAILCATCHER_PORT:1080
+
+  # For webhook payload check
+  webhook:
+    image: mendhak/http-https-echo

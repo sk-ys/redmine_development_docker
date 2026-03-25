@@ -94,6 +94,27 @@ $ git reset --hard origin/master
 
 http://localhost:[.envで指定したMAILCATCHER_PORT] でにアクセスするとメールキャッチャーを開ける
 
+### WEBHOOK の内容を簡単に確認する
+
+Redmine から送信された WEBHOOK のペイロードを Docker のログで確認できます。Redmine の初期状態では WEBHOOK は設定されていないため、確認するためには以下の手順で画面から手動で設定を行う必要があります。
+
+#### 設定手順:
+
+1. Redmine の管理画面で `管理 -> 設定 -> 連携` (http://localhost:8000/settings?tab=integrations) を開き、`Webhookを有効にする` を ON にして保存する
+2. Redmine に WEBHOOK を作成したいユーザーでログインし、`個人設定 -> Webhooks` (http://localhost:8000/webhooks) を開く
+3. `新しいwebhook` (http://localhost:8000/webhooks/new) を開き、以下の通り設定を行い保存する
+    - 設定
+        - **送信先 URL**:  `http://webhook:8080/hooks/redmine`
+        - **有効**: ON
+        - **Webhook を有効にしたい何れかのイベントを選択**
+        - **Webhook を有効にしたい何れかのプロジェクトを選択**
+
+#### ログ確認:
+
+```bash
+docker compose logs -f webhook
+```
+
 ### test/systemのテストを実行する場合
 
 docker-compose.yml内のchrome:の塊のコメントアウトを外し、VSCodeのコマンドパレットからRebuild and Reopen container
