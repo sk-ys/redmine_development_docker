@@ -7,6 +7,11 @@ ENV LANG C.UTF-8
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN set -eux; \
+  mkdir -p /usr/share/keyrings; \
+  if [ -f /etc/apt/sources.list.d/yarn.list ] || [ -f /etc/apt/sources.list.d/yarn.sources ]; then \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --batch --yes --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg; \
+    chmod go+r /usr/share/keyrings/yarn-archive-keyring.gpg; \
+  fi; \
   apt update && \
   apt upgrade -y && \
   apt install -y --no-install-recommends \
