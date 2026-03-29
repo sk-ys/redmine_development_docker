@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/ruby:$RUBY_VERSION
 ARG APP_HOME
 ARG APP_PORT
 ENV LANG C.UTF-8
+ENV APP_HOME $APP_HOME
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN set -eux; \
