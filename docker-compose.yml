@@ -41,6 +41,7 @@ services:
       - $APP_PORT:3000
     depends_on:
       - postgresdb
+      - redis
     #  - mysqldb
     volumes:
       # - ./app:/var/lib/redmine:cached
@@ -64,6 +65,12 @@ services:
     image: schickling/mailcatcher
     ports:
       - $MAILCATCHER_PORT:1080
+
+  redis:
+    image: redis:7
+    restart: on-failure:5
+    expose:
+      - "6379"
 
   # For webhook payload check
   webhook:
